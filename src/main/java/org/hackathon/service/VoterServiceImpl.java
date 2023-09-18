@@ -11,12 +11,17 @@ public class VoterServiceImpl implements VoterService {
     private VoterRepository voterRepository;
 
     @Override
-    public void createVoter(Voter voter){
-        voterRepository.save(voter);
+    public Voter registerToVote(Voter voter) {
+        return voterRepository.save(voter);
     }
 
     @Override
-    public Voter getVoter(String name) {
-        return voterRepository.findByName(name);
+    public Voter findVoterByIdentity(String identity) {
+        return voterRepository.findByIdentity(identity);
+    }
+
+    @Override
+    public Voter findVoterByEmail(String email) {
+        return voterRepository.findByEmail(email);
     }
 }

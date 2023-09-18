@@ -1,16 +1,20 @@
 server:
   port: 8080
 spring:
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test
-    #   url: jdbc:h2:file:D:/tools/development/h2/db/student
-    username: username
+    url: jdbc:h2:mem:h2database
+    #url: jdbc:h2:file:D:\Projects\NiuProject\h2database
+    username: sa
     password: password
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
   h2:
     console:
       path: /h2
