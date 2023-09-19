@@ -121,6 +121,11 @@ public class Voter implements Serializable {
     public Voter() {
     }
 
+    public Voter(String identity, String email) {
+        this.identity = identity;
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Voter{");

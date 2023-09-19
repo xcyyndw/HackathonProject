@@ -24,4 +24,16 @@ public class VoterServiceImpl implements VoterService {
     public Voter findVoterByEmail(String email) {
         return voterRepository.findByEmail(email);
     }
+
+    @Override
+    public Voter update(Voter voter) {
+        return voterRepository.save(voter);
+    }
+
+    @Override
+    public String deleteByIdentity(String identity) {
+        Voter voter = new Voter(identity, null);
+        voterRepository.delete(voter);
+        return "deleted successfully";
+    }
 }

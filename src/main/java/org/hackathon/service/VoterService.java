@@ -6,4 +6,6 @@ public interface VoterService {
     Voter registerToVote(Voter voter);
     Voter findVoterByIdentity(String identity);
     Voter findVoterByEmail(String email);
+    Voter update(Voter voter);
+    String deleteByIdentity(String identity);
 }

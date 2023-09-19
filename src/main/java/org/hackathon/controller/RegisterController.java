@@ -1,12 +1,13 @@
 package org.hackathon.controller;
 
 import org.hackathon.entity.Voter;
+import org.hackathon.response.RequestResponse;
 import org.hackathon.service.VoterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/voter")
@@ -17,21 +18,35 @@ public class RegisterController {
     private VoterService voterService;
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Voter> register(@RequestBody Voter voter) {
+    public ResponseEntity<RequestResponse<Voter>> register(@RequestBody Voter voter) {
         if (ObjectUtils.isEmpty(voter)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Voter());
+            return ResponseEntity.badRequest().body(RequestResponse.failure("RequestBody is empty"));
+        } else if (!StringUtils.hasText(voter.getIdentity())) {
+            return ResponseEntity.badRequest().body(RequestResponse.failure("Identity is empty"));
+        } else if (!StringUtils.hasText(voter.getEmail())) {
+            return ResponseEntity.badRequest().body(RequestResponse.failure("Email is empty"));
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(voterService.registerToVote(voter));
+            return ResponseEntity.ok(RequestResponse.success(voterService.registerToVote(voter)));
         }
     }
 
-    @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Voter> findVoterByIdentity(@PathVariable("id") String id) {
-        return ResponseEntity.status(HttpStatus.OK).body(voterService.findVoterByIdentity(id));
+    @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RequestResponse<Voter>> update(@RequestBody Voter voter) {
+        return ResponseEntity.ok(RequestResponse.success(voterService.update(voter)));
+    }
+
+    @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RequestResponse<String>> delete(@RequestParam("identity") String identity) {
+        return ResponseEntity.ok(RequestResponse.success(voterService.deleteByIdentity(identity)));
+    }
+
+    @GetMapping(value = "/identity/{identity}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RequestResponse<Voter>> findVoterByIdentity(@PathVariable("identity") String identity) {
+        return ResponseEntity.ok(RequestResponse.success(voterService.findVoterByIdentity(identity)));
     }
 
     @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Voter> findVoterByEmail(@PathVariable("email") String email) {
-        return ResponseEntity.status(HttpStatus.OK).body(voterService.findVoterByEmail(email));
+    public ResponseEntity<RequestResponse<Voter>> findVoterByEmail(@PathVariable("email") String email) {
+        return ResponseEntity.ok(RequestResponse.success(voterService.findVoterByEmail(email)));
     }
 }
