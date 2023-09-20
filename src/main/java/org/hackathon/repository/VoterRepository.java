@@ -4,7 +4,7 @@ import org.hackathon.entity.Voter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VoterRepository extends JpaRepository<Voter, String> {
-    Voter findByIdentity(String identity);
+    Voter findByPhone(String phone);
 
     Voter findByEmail(String email);
 }

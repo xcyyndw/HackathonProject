@@ -16,24 +16,18 @@ public class VoterServiceImpl implements VoterService {
     }
 
     @Override
-    public Voter findVoterByIdentity(String identity) {
-        return voterRepository.findByIdentity(identity);
-    }
-
-    @Override
-    public Voter findVoterByEmail(String email) {
-        return voterRepository.findByEmail(email);
-    }
-
-    @Override
     public Voter update(Voter voter) {
         return voterRepository.save(voter);
     }
 
     @Override
-    public String deleteByIdentity(String identity) {
-        Voter voter = new Voter(identity, null);
-        voterRepository.delete(voter);
-        return "deleted successfully";
+    public Voter findByPhone(String phone) {
+        return voterRepository.findByPhone(phone);
     }
+
+    @Override
+    public Voter findByEmail(String email) {
+        return voterRepository.findByEmail(email);
+    }
+
 }
