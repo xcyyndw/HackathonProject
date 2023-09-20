@@ -7,4 +7,8 @@ public interface VoterRepository extends JpaRepository<Voter, String> {
     Voter findByPhone(String phone);
 
     Voter findByEmail(String email);
+
+    void deleteByPhone(String phone);
+
+    void deleteByEmail(String email);
 }

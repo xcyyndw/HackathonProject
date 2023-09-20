@@ -22,7 +22,7 @@ public class Voter implements Serializable {
     @Column(name = "suffix")
     private String suffix;
     @Column(name = "citizenUS", nullable = false)
-    private String citizenUS;
+    private Boolean citizenUS;
     @Column(name = "age18")
     private Boolean age18;
     @Column(name = "reasonToRegister")
@@ -113,11 +113,11 @@ public class Voter implements Serializable {
         this.suffix = suffix;
     }
 
-    public String getCitizenUS() {
+    public Boolean getCitizenUS() {
         return citizenUS;
     }
 
-    public void setCitizenUS(String citizenUS) {
+    public void setCitizenUS(Boolean citizenUS) {
         this.citizenUS = citizenUS;
     }
 

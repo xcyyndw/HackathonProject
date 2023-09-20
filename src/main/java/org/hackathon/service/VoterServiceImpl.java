@@ -4,6 +4,7 @@ import org.hackathon.entity.Voter;
 import org.hackathon.repository.VoterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class VoterServiceImpl implements VoterService {
@@ -17,6 +18,13 @@ public class VoterServiceImpl implements VoterService {
 
     @Override
     public Voter update(Voter voter) {
+        if (StringUtils.hasText(voter.getEmail())) {
+            voterRepository.deleteByEmail(voter.getEmail());
+        } else if (StringUtils.hasText(voter.getPhone())) {
+            voterRepository.deleteByPhone(voter.getPhone());
+        } else {
+            throw new RuntimeException("Cannot find user info!");
+        }
         return voterRepository.save(voter);
     }
 
