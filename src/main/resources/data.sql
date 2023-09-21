@@ -1,5 +1,5 @@
 insert into Voter(email,phone,birthDate,citizenUS,city,firstName,lastName,gender,streetAddress1,streetAddress2) values ('Jordan@google.com', '11111111','01/01/2000',true,'DaLian','Jordan','Michael','male', 'address1','address2');
-insert into Voter(email,phone,birthDate,citizenUS,city,firstName,lastName,gender,streetAddress1,streetAddress2) values ('Iverson@google.com', '11111111','02/02/2000',true,'DaLian','Iverson','Allen','male', 'address1','address2');
+insert into Voter(email,phone,birthDate,citizenUS,city,firstName,lastName,gender,streetAddress1,streetAddress2) values ('Iverson@google.com', '22222222','02/02/2000',true,'DaLian','Iverson','Allen','male', 'address1','address2');
 insert into Voter(email,phone,birthDate,citizenUS,city,firstName,lastName,gender,streetAddress1,streetAddress2) values ('Kobe@google.com', '33333333','03/03/2000',true,'DaLian','Kobe','Bryant','male', 'address1','address2');
 
 insert into Authentication(email, password) values ('Jordan@google.com', '11111111');

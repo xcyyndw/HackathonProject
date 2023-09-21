@@ -14,6 +14,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/voter")
+@CrossOrigin
 @RestController
 public class RegisterController {
 
