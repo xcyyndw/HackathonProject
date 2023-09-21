@@ -7,6 +7,7 @@ import org.hackathon.response.SingleResponse;
 import org.hackathon.service.AchievementService;
 import org.hackathon.service.VoterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -37,11 +38,19 @@ public class RegisterController {
 
     @GetMapping(value = "/phone/{phone}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SingleResponse<Voter>> findVoterByPhone(@PathVariable("phone") String phone) {
+        Voter result = voterService.findByPhone(phone);
+        if (ObjectUtils.isEmpty(result)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(SingleResponse.failure("User Not Found"));
+        }
         return ResponseEntity.ok(SingleResponse.success(voterService.findByPhone(phone)));
     }
 
     @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SingleResponse<Voter>> findVoterByEmail(@PathVariable("email") String email) {
+        Voter result = voterService.findByEmail(email);
+        if (ObjectUtils.isEmpty(result)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(SingleResponse.failure("User Not Found"));
+        }
         return ResponseEntity.ok(SingleResponse.success(voterService.findByEmail(email)));
     }
 
