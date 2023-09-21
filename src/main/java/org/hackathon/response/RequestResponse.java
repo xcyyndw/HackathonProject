@@ -52,6 +52,10 @@ public class RequestResponse<T> implements Serializable {
         return new RequestResponse<T>(data);
     }
 
+    public static <T> RequestResponse<T> success() {
+        return new RequestResponse<T>(null, true);
+    }
+
     public static <T> RequestResponse<T> failure(String message) {
         return new RequestResponse<T>(message, false);
     }
