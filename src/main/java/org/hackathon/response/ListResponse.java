@@ -3,23 +3,24 @@ package org.hackathon.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RequestResponse<T> implements Serializable {
+public class ListResponse<T> implements Serializable {
 
     private Boolean success;
     private String message;
-    private T data;
+    private List<T> data;
 
-    private RequestResponse() {
+    private ListResponse() {
     }
 
-    private RequestResponse(String message, boolean success) {
+    private ListResponse(String message, boolean success) {
         this.message = message;
         this.success = success;
     }
 
-    private RequestResponse(T data) {
+    private ListResponse(List<T> data) {
         this.data = data;
         this.success = true;
     }
@@ -40,29 +41,29 @@ public class RequestResponse<T> implements Serializable {
         this.message = message;
     }
 
-    public T getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 
-    public static <T> RequestResponse<T> success(T data) {
-        return new RequestResponse<T>(data);
+    public static <T> ListResponse<T> success(List<T> data) {
+        return new ListResponse<T>(data);
     }
 
-    public static <T> RequestResponse<T> success() {
-        return new RequestResponse<T>(null, true);
+    public static <T> ListResponse<T> success() {
+        return new ListResponse<T>(null, true);
     }
 
-    public static <T> RequestResponse<T> failure(String message) {
-        return new RequestResponse<T>(message, false);
+    public static <T> ListResponse<T> failure(String message) {
+        return new ListResponse<T>(message, false);
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("RequestResponse{");
+        final StringBuilder sb = new StringBuilder("Response{");
         sb.append("success=").append(success);
         sb.append(", message='").append(message).append('\'');
         sb.append(", data=").append(data);

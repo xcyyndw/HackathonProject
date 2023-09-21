@@ -11,7 +11,7 @@ public class Voter implements Serializable {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
     @Id
-    @Column(name = "phone", nullable = false, unique = true)
+    @Column(name = "phone", nullable = false)
     private String phone;
     @Column(name = "firstName", nullable = false)
     private String firstName;
