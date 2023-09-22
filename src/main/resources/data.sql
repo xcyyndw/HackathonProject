@@ -6,9 +6,9 @@ insert into Authentication(id, email, password) values (1, 'Jordan@google.com', 
 insert into Authentication(id, email, password) values (2, 'Iverson@google.com', '22222222');
 insert into Authentication(id, email, password) values (3, 'Kobe@google.com', '33333333');
 
-insert into RegisterStatus(id, status) values (1, 'Register in progress');
-insert into RegisterStatus(id, status) values (2, 'Register Succeed');
-insert into RegisterStatus(id, status) values (3, 'Register Succeed');
+insert into RegisterStatus(id, status) values (1, 'inprogress');
+insert into RegisterStatus(id, status) values (2, 'completed');
+insert into RegisterStatus(id, status) values (3, 'completed');
 
 insert into Achievement(voterId, achievementName, unlock, unlockDate) values (1, 'Register First Time', 'Y', '03/12/2001');
 insert into Achievement(voterId, achievementName, unlock, unlockDate) values (1, 'Vote First Time', 'Y', '03/12/2001');
