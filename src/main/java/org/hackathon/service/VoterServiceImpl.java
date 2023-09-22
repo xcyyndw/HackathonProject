@@ -86,13 +86,13 @@ public class VoterServiceImpl implements VoterService {
     @Override
     public String updateStatusById(String status, Long id) {
         switch (status) {
-            case "success":
+            case "completed":
                 status = Constant.REGISTER_STATUS_SUCCEED;
                 break;
-            case "fail":
+            case "rejected":
                 status = Constant.REGISTER_STATUS_FAILED;
                 break;
-            case "progress":
+            case "inprogress":
                 status = Constant.REGISTER_STATUS_INPROGRESS;
                 break;
             default:
