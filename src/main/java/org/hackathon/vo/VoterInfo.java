@@ -1,72 +1,42 @@
-package org.hackathon.entity;
+package org.hackathon.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "Voter")
-public class Voter implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class VoterInfo implements Serializable {
     private Long id;
-    @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "phone", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String registerStatus;
     private String phone;
-    @Column(name = "firstName", nullable = false)
     private String firstName;
-    @Column(name = "middleName")
     private String middleName;
-    @Column(name = "lastName", nullable = false)
     private String lastName;
-    @Column(name = "suffix")
     private String suffix;
-    @Column(name = "citizenUS", nullable = false)
     private Boolean citizenUS;
-    @Column(name = "age18", nullable = false)
     private Boolean age18;
-    @Column(name = "reasonToRegister")
     private String reasonToRegister;
-    @Column(name = "birthDate", nullable = false)
     private String birthDate;
-    @Column(name = "gender", nullable = false)
     private String gender;
-    @Column(name = "streetAddress1", nullable = false)
     private String streetAddress1;
-    @Column(name = "streetAddress2", nullable = false)
     private String streetAddress2;
-    @Column(name = "unitType")
     private String unitType;
-    @Column(name = "unitNumber")
     private String unitNumber;
-    @Column(name = "city", nullable = false)
     private String city;
-    @Column(name = "zipCode")
     private String zipCode;
-    @Column(name = "padriver")
     private String padriver;
-    @Column(name = "socialSecurity")
     private String socialSecurity;
-    @Column(name = "penndotID")
     private String penndotID;
-    @Column(name = "politicalParty")
     private String politicalParty;
-    @Column(name = "votingAssistance")
     private Boolean votingAssistance;
-    @Column(name = "declaration")
     private Boolean declaration;
-    @Column(name = "pollWorker")
     private Boolean pollWorker;
-    @Column(name = "annualBallot")
     private Boolean annualBallot;
-    @Column(name = "mailInBallot")
     private Boolean mailInBallot;
-
-    public Voter() {
-    }
 
     public Long getId() {
         return id;
@@ -82,6 +52,22 @@ public class Voter implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRegisterStatus() {
+        return registerStatus;
+    }
+
+    public void setRegisterStatus(String registerStatus) {
+        this.registerStatus = registerStatus;
     }
 
     public String getPhone() {
@@ -286,9 +272,11 @@ public class Voter implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Voter{");
+        final StringBuilder sb = new StringBuilder("VoterInfo{");
         sb.append("id=").append(id);
         sb.append(", email='").append(email).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", registerStatus='").append(registerStatus).append('\'');
         sb.append(", phone='").append(phone).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", middleName='").append(middleName).append('\'');

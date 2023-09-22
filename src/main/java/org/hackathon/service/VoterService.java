@@ -1,10 +1,10 @@
 package org.hackathon.service;
 
-import org.hackathon.entity.Voter;
+import org.hackathon.vo.VoterInfo;
 
 public interface VoterService {
-    Voter registerToVote(Voter voter);
-    Voter update(Voter voter);
-    Voter findByPhone(String phone);
-    Voter findByEmail(String email);
+    VoterInfo registerToVote(VoterInfo info);
+    VoterInfo update(VoterInfo info);
+    VoterInfo findById(Long i);
+    String updateStatusById(String status, Long id);
 }

@@ -1,41 +1,101 @@
 package org.hackathon.service;
 
+import org.hackathon.constants.Constant;
+import org.hackathon.entity.Authentication;
+import org.hackathon.entity.RegisterStatus;
 import org.hackathon.entity.Voter;
+import org.hackathon.repository.AuthenticationRepository;
+import org.hackathon.repository.RegisterStatusRepository;
 import org.hackathon.repository.VoterRepository;
+import org.hackathon.vo.VoterInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+
+import java.util.Optional;
 
 @Service
 public class VoterServiceImpl implements VoterService {
+
     @Autowired
     private VoterRepository voterRepository;
 
+    @Autowired
+    private AuthenticationRepository authenticationRepository;
+
+    @Autowired
+    private RegisterStatusRepository registerStatusRepository;
+
     @Override
-    public Voter registerToVote(Voter voter) {
-        return voterRepository.save(voter);
+    public VoterInfo registerToVote(VoterInfo info) {
+        Voter voter = new Voter();
+        BeanUtils.copyProperties(info, voter, "id", "registerStatus");
+        voter = voterRepository.save(voter);
+
+        Authentication authentication = new Authentication();
+        authentication.setId(voter.getId());
+        authentication.setEmail(info.getEmail());
+        authentication.setPassword(info.getPassword());
+        authenticationRepository.save(authentication);
+
+        RegisterStatus status = new RegisterStatus();
+        status.setId(voter.getId());
+        status.setStatus(Constant.REGISTER_STATUS_INPROGRESS);
+        registerStatusRepository.save(status);
+
+        info.setId(voter.getId());
+        info.setRegisterStatus(Constant.REGISTER_STATUS_INPROGRESS);
+        return info;
     }
 
     @Override
-    public Voter update(Voter voter) {
-        if (StringUtils.hasText(voter.getEmail())) {
-            voterRepository.deleteByEmail(voter.getEmail());
-        } else if (StringUtils.hasText(voter.getPhone())) {
-            voterRepository.deleteByPhone(voter.getPhone());
-        } else {
-            throw new RuntimeException("Cannot find user info!");
+    public VoterInfo update(VoterInfo info) {
+        if (info.getId() == null) {
+            throw new RuntimeException("could not found user");
         }
-        return voterRepository.save(voter);
+        Voter voter = new Voter();
+        BeanUtils.copyProperties(info, voter);
+        voterRepository.save(voter);
+        return info;
     }
 
     @Override
-    public Voter findByPhone(String phone) {
-        return voterRepository.findByPhone(phone);
+    public VoterInfo findById(Long id) {
+        Optional<Voter> optionalVoter = voterRepository.findById(id);
+        Voter voter = optionalVoter.orElse(null);
+        if (voter != null) {
+            VoterInfo info = new VoterInfo();
+            BeanUtils.copyProperties(voter, info);
+            Optional<RegisterStatus> optionalStatus = registerStatusRepository.findById(voter.getId());
+            RegisterStatus registerStatus = optionalStatus.orElse(null);
+            info.setRegisterStatus(registerStatus == null ? null : registerStatus.getStatus());
+            return info;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Voter findByEmail(String email) {
-        return voterRepository.findByEmail(email);
+    public String updateStatusById(String status, Long id) {
+        switch (status) {
+            case "success":
+                status = Constant.REGISTER_STATUS_SUCCEED;
+                break;
+            case "fail":
+                status = Constant.REGISTER_STATUS_FAILED;
+                break;
+            case "progress":
+                status = Constant.REGISTER_STATUS_INPROGRESS;
+                break;
+            default:
+                status = Constant.REGISTER_STATUS_SUCCEED;
+        }
+        Optional<RegisterStatus> optional = registerStatusRepository.findById(id);
+        final String toBeSavedStatus = status;
+        optional.ifPresent(value -> {
+            value.setStatus(toBeSavedStatus);
+            registerStatusRepository.save(value);
+        });
+        return "success";
     }
-
 }

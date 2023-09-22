@@ -14,8 +14,8 @@ public class AchievementServiceImpl implements AchievementService {
     private AchievementRepository achievementRepository;
 
     @Override
-    public List<Achievement> findByEmail(String email) {
-        return achievementRepository.findByEmail(email);
+    public List<Achievement> findById(Long id) {
+        return achievementRepository.findListById(id);
     }
 
     @Override

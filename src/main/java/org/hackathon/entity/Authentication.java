@@ -1,15 +1,24 @@
 package org.hackathon.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Authentication")
-public class Authentication {
+public class Authentication implements Serializable {
+
     @Id
+    private Long id;
     private String email;
     private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;

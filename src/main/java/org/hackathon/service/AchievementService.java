@@ -5,7 +5,7 @@ import org.hackathon.entity.Achievement;
 import java.util.List;
 
 public interface AchievementService {
-    List<Achievement> findByEmail(String email);
+    List<Achievement> findById(Long id);
 
     Achievement save(Achievement achievement);
 }
