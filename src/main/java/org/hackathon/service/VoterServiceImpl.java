@@ -59,6 +59,10 @@ public class VoterServiceImpl implements VoterService {
         if (voter != null) {
             BeanUtils.copyProperties(info, voter, BeanCopyUtils.getNullPropertyNames(info));
             voterRepository.save(voter);
+            BeanUtils.copyProperties(voter, info);
+            Optional<RegisterStatus> optionalStatus = registerStatusRepository.findById(voter.getId());
+            RegisterStatus registerStatus = optionalStatus.orElse(null);
+            info.setRegisterStatus(registerStatus == null ? null : registerStatus.getStatus());
         }
         return info;
     }
