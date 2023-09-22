@@ -70,7 +70,7 @@ public class RegisterController {
     }
 
     @PostMapping(value = "/status/update/{id}/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SingleResponse<String>> updateStatus(@RequestParam("id") String id, @RequestParam("status") String status) {
+    public ResponseEntity<SingleResponse<String>> updateStatus(@PathVariable("id") String id, @PathVariable("status") String status) {
         return ResponseEntity.ok(SingleResponse.success(voterService.updateStatusById(status, Long.valueOf(id))));
     }
 
