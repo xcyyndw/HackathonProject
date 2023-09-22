@@ -3,9 +3,7 @@ package org.hackathon.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -13,7 +11,11 @@ import java.io.Serializable;
 public class Achievement implements Serializable {
     @Id
     @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonIgnore
+    private Long voterId;
     private String achievementName;
     private String unlock;
     private String unlockDate;
@@ -24,6 +26,14 @@ public class Achievement implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getVoterId() {
+        return voterId;
+    }
+
+    public void setVoterId(Long voterId) {
+        this.voterId = voterId;
     }
 
     public String getAchievementName() {
@@ -54,6 +64,7 @@ public class Achievement implements Serializable {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Achievement{");
         sb.append("id=").append(id);
+        sb.append(", voterId=").append(voterId);
         sb.append(", achievementName='").append(achievementName).append('\'');
         sb.append(", unlock='").append(unlock).append('\'');
         sb.append(", unlockDate='").append(unlockDate).append('\'');

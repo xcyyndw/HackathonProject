@@ -1,17 +1,20 @@
-insert into Voter(email,phone,birthDate,citizenUS,city,firstName,lastName,gender,streetAddress1,streetAddress2) values ('Jordan@google.com', '11111111','01/01/2000',true,'DaLian','Jordan','Michael','male', 'address1','address2');
-insert into Voter(email,phone,birthDate,citizenUS,city,firstName,lastName,gender,streetAddress1,streetAddress2) values ('Iverson@google.com', '22222222','02/02/2000',true,'DaLian','Iverson','Allen','male', 'address1','address2');
-insert into Voter(email,phone,birthDate,citizenUS,city,firstName,lastName,gender,streetAddress1,streetAddress2) values ('Kobe@google.com', '33333333','03/03/2000',true,'DaLian','Kobe','Bryant','male', 'address1','address2');
+insert into Voter(email,phone,birthDate,gender,citizenUS,age18,city,firstName,lastName,streetAddress1,streetAddress2,zipCode,socialSecurity) values ('Jordan@google.com', '111-111-1111','01/01/2000','male',true,true,'Chicago','Jordan','Michael','XXXX Street','YYYY Building', '000111', '111111XXXX');
+insert into Voter(email,phone,birthDate,gender,citizenUS,age18,city,firstName,lastName,streetAddress1,streetAddress2,zipCode,socialSecurity) values ('Iverson@google.com', '222-222-2222','01/01/2000','male',true,true,'Philadelphia','Iverson','Allen','XXXX Street','YYYY Building', '000111', '222222XXXX');
+insert into Voter(email,phone,birthDate,gender,citizenUS,age18,city,firstName,lastName,streetAddress1,streetAddress2,zipCode,socialSecurity) values ('Kobe@google.com', '333-333-3333','01/01/2000','male',true,true,'LosAngeles','Kobe','Bryant','XXXX Street','YYYY Building', '000111', '333333XXXX');
 
-insert into Authentication(email, password) values ('Jordan@google.com', '11111111');
-insert into Authentication(email, password) values ('Iverson@google.com', '22222222');
-insert into Authentication(email, password) values ('Kobe@google.com', '33333333');
+insert into Authentication(id, email, password) values (1, 'Jordan@google.com', '11111111');
+insert into Authentication(id, email, password) values (2, 'Iverson@google.com', '22222222');
+insert into Authentication(id, email, password) values (3, 'Kobe@google.com', '33333333');
 
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Jordan@google.com', 'Login First Time', 'Y', '02/12/2001');
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Jordan@google.com', 'Register First Time', 'Y', '03/12/2001');
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Jordan@google.com', 'Vote First Time', 'Y', '03/12/2001');
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Jordan@google.com', 'Vote For 3 Years', 'Y', '03/12/2010');
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Iverson@google.com', 'Login First Time', 'Y', '02/01/2001');
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Iverson@google.com', 'Register First Time', 'Y', '03/12/2004');
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Kobe@google.com', 'Login First Time', 'Y', '02/12/2001');
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Kobe@google.com', 'Register First Time', 'Y', '03/12/2001');
-insert into Achievement(email, achievementName, unlock, unlockDate) values ('Kobe@google.com', 'Vote First Time', 'Y', '06/07/2005');
+insert into RegisterStatus(id, status) values (1, 'Register in progress');
+insert into RegisterStatus(id, status) values (2, 'Register Succeed');
+insert into RegisterStatus(id, status) values (3, 'Register Succeed');
+
+insert into Achievement(voterId, achievementName, unlock, unlockDate) values (1, 'Register First Time', 'Y', '03/12/2001');
+insert into Achievement(voterId, achievementName, unlock, unlockDate) values (1, 'Vote First Time', 'Y', '03/12/2001');
+insert into Achievement(voterId, achievementName, unlock, unlockDate) values (1, 'Vote For 3 Years', 'Y', '03/12/2010');
+insert into Achievement(voterId, achievementName, unlock, unlockDate) values (2, 'Login First Time', 'Y', '02/01/2001');
+insert into Achievement(voterId, achievementName, unlock, unlockDate) values (2, 'Register First Time', 'Y', '03/12/2004');
+insert into Achievement(voterId, achievementName, unlock, unlockDate) values (3, 'Login First Time', 'Y', '02/12/2001');
+insert into Achievement(voterId, achievementName, unlock, unlockDate) values (3, 'Register First Time', 'Y', '03/12/2001');
+insert into Achievement(voterId, achievementName, unlock, unlockDate) values (3, 'Vote First Time', 'Y', '06/07/2005');

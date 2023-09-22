@@ -7,6 +7,7 @@ import org.hackathon.entity.Voter;
 import org.hackathon.repository.AuthenticationRepository;
 import org.hackathon.repository.RegisterStatusRepository;
 import org.hackathon.repository.VoterRepository;
+import org.hackathon.utils.BeanCopyUtils;
 import org.hackathon.vo.VoterInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class VoterServiceImpl implements VoterService {
     @Override
     public VoterInfo registerToVote(VoterInfo info) {
         Voter voter = new Voter();
-        BeanUtils.copyProperties(info, voter, "id", "registerStatus");
+        BeanUtils.copyProperties(info, voter);
         voter = voterRepository.save(voter);
 
         Authentication authentication = new Authentication();
@@ -53,9 +54,12 @@ public class VoterServiceImpl implements VoterService {
         if (info.getId() == null) {
             throw new RuntimeException("could not found user");
         }
-        Voter voter = new Voter();
-        BeanUtils.copyProperties(info, voter);
-        voterRepository.save(voter);
+        Optional<Voter> optional = voterRepository.findById(info.getId());
+        Voter voter = optional.orElse(null);
+        if (voter != null) {
+            BeanUtils.copyProperties(info, voter, BeanCopyUtils.getNullPropertyNames(info));
+            voterRepository.save(voter);
+        }
         return info;
     }
 
@@ -98,4 +102,5 @@ public class VoterServiceImpl implements VoterService {
         });
         return "success";
     }
+
 }

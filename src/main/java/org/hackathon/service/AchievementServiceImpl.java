@@ -15,7 +15,7 @@ public class AchievementServiceImpl implements AchievementService {
 
     @Override
     public List<Achievement> findById(Long id) {
-        return achievementRepository.findListById(id);
+        return achievementRepository.findListByVoterId(id);
     }
 
     @Override
